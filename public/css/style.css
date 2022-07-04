@@ -1,0 +1,94 @@
+* {
+   font-family: Arial, Helvetica, sans-serif;
+   background-color: #212121;
+   color:aliceblue;
+   user-select: none;
+}
+h1 {
+   text-align: center;
+   margin: 2rem;
+}
+
+.container {
+   display: flex;
+   /* padding: 1rem; */
+   justify-content: space-around;
+   flex-wrap: wrap;
+   border-radius: 1rem;
+}
+.v-container {
+   flex-direction: column;
+}
+.main-container {
+   /* flex-wrap: nowrap; */
+}
+.box {
+   padding: 0.5rem;
+   margin: 0.2rem;
+}
+.small-box {
+   padding: 0.1rem;
+   margin: 0.1rem;
+}
+
+#algorithm-params, #global-params {
+   flex-wrap: wrap;
+   justify-content: space-between;
+   /* background-color: violet; */
+}
+#params{
+   background-color: #292929;
+   justify-content: flex-start;
+   padding: 1.5rem;
+   flex-grow: 0;
+   flex-shrink: 0;
+}
+.number-display {
+   font-size: larger !important;
+   font-weight: bold;
+   /* color: #5cb85c; */
+}
+.input-group{
+   /* background-color: #5cb85c; */
+   justify-content: space-around;
+}
+.input-group .box {
+   padding: 0;
+   justify-content: center;
+}
+.input-group div label{
+   /* font-weight:bolder; */
+   font-size: 1rem;
+}
+#canvas {
+
+}
+
+button {
+   padding: 0.8em 1em;
+   border: none;
+   outline: none;
+   color: #FFF;
+   font-family: inherit;
+   font-weight: 800;
+   font-size: 1em;
+   cursor: pointer;
+   position: relative;
+   z-index: 0;
+   border-radius: 12px;
+   flex: 1;
+}
+.btn-green {
+   background-color: #3C824C;
+}
+.btn-red {
+   background-color: #9E413F;
+}
+.btn-blue {
+   background-color: #016ecd;
+}
+#buttons {
+   justify-content: space-evenly;
+   align-content: stretch;
+   padding: 1rem;
+}
