@@ -21,7 +21,7 @@ function draw() {
    background("#212121");
    drawPoints();
 
-   for (i = 0; i < params.ciclerPerFrame; i++) {
+   for (i = 0; i < params["cicles-per-frame"]; i++) {
       nextGeneration();
    }
    // draw

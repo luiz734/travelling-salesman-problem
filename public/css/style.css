@@ -46,6 +46,9 @@ h1 {
 .number-display {
    font-size: larger !important;
    font-weight: bold;
+   min-width: 45px;
+   max-width: 45px;
+   /* white-space: preo; */
    /* color: #5cb85c; */
 }
 .input-group{
@@ -56,10 +59,10 @@ h1 {
    padding: 0;
    justify-content: center;
 }
-.input-group div label{
+/* .input-group div label{
    /* font-weight:bolder; */
-   font-size: 1rem;
-}
+   /* font-size: 1rem; */
+/* } */ 
 #canvas {
 
 }

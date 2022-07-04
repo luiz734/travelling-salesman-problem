@@ -42,7 +42,7 @@ function nextGeneration() {
       const [parentA, parentB] = weightedRandomChoices(2);
       let child = reproduce(parentA, parentB);
 
-      if (random() < params.mutationRate) {
+      if (random() < params["mutation-rate"]) {
          mutate(child);
       }
 
@@ -149,7 +149,7 @@ function reproduce(parentA, parentB) {
 }
 function recreatePoints() {
    cities = [];
-   for (let i = 0; i < params.totalCities; i++) {
+   for (let i = 0; i < params["total-cities"]; i++) {
       let margin = WIDTH + 2;
       p = new Point(
          random(0 + margin, MAX_X - margin),
@@ -162,7 +162,7 @@ function recreatePopulation() {
    generation = 0;
    bestFitness = Infinity;
    population = [];
-   for (let i = 0; i < params.populationSize; i++) {
+   for (let i = 0; i < params["population-size"]; i++) {
       population.push(new Individual());
    }
 }

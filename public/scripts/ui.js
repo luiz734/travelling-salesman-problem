@@ -1,8 +1,8 @@
 const params = {
-   totalCities: 30,
-   populationSize: 400,
-   mutationRate: 0.02,
-   ciclerPerFrame: 1,
+   "total-cities": 30,
+   "population-size": 400,
+   "mutation-rate": 0.02,
+   "cicles-per-frame": 1,
 };
 
 $(document).ready(function () {
@@ -11,11 +11,25 @@ $(document).ready(function () {
 
    $("#btn-new").click(restart);
    $("#btn-reset").click(recreatePopulation);
+
+   setRangeChangedEvent("total-cities");
+   setRangeChangedEvent("population-size");
+   setRangeChangedEvent("mutation-rate");
+   setRangeChangedEvent("cicles-per-frame");
 });
 
+function setRangeChangedEvent(paramName) {
+   $("#range-" + paramName).on("input change", function () {
+      const newValue = $(this).val();
+      $("#display-" + paramName).html(newValue);
+      params[paramName] = newValue;
+      param = newValue;
+      restart();
+   });
+}
 const GLOBAL_PARAMS = [
    createParam("Total Cities", 1, 100, 1, 30),
-   createParam("Cicles per Frame", 1, 1000, 1, 1),
+   createParam("Cicles per Frame", 1, 100, 1, 1),
 ];
 const GENETIC_PARAMS = [
    createParam("Population Size", 50, 2000, 50, 400),
@@ -42,20 +56,19 @@ const buildSlider = ({ caption, min, max, step, initialValue }) => `
     <div class="container">
       <label class="box small-box" for="ga-pop-size">${caption}</label>
     </div>
-    <input id="ga-pop-size" class="box" type="range" min="${min}" max="${max}" step="${step}" value="${initialValue}" >
+    <input id="range-${parseId(caption)}" class="box" name="range-${parseId(
+   caption
+)}"type="range" min="${min}" max="${max}" step="${step}" value="${initialValue}" >
   </div>
   <div class="container v-container small-box">
-    <label id="value" class="box number-display" for="">${initialValue}</label>
+    <labem id="display-${parseId(caption)}" 
+     class="box number-display" for="">${initialValue}</label>
   </div>
 </div>`;
 
 const buildButton = ({}) => ``;
 
-function formatNumber(number) {
-   let isFloat = min <= 1;
-   return number.toLocaleString("en-US", {
-      minimumIntegerDigits: isFloat ? 1 : 2,
-      minimumFractionDigits: isFloat ? 2 : 0,
-      useGrouping: false,
-   });
+function parseId(caption) {
+   console.log(caption);
+   return caption.toLowerCase().replace(/\s/g, "-");
 }
