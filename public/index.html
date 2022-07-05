@@ -19,39 +19,40 @@
       <div id="params" class="container v-container box">
 
         <!-- buttons -->
-        <div id="buttons" class="container v-container box">
+        <div id="global-options" class="container v-container box">
           <div class="container box small-box">
-            <button id="btn-new" class="box btn-green"> New Points</button>
+            <button id="btn-new" class="box btn-green"> New </button>
           </div>
           <div class="container box small-box">
             <button id="btn-reset" class="box btn-blue"> Reset </button>
             <button id="btn-reset" class="box btn-red"> Foo </button>
           </div>
 
-        </div>
-
-        <!-- global params -->
-        <div class=" container v-container box">
-          <div class="container box"> Global Params </div>
-          <div id="global-params" class=" container box">
+          <!-- global params -->
+          <div class=" container v-container box">
+            <!-- <div class="container box"> Global Params </div> -->
+            <div id="global-params" class=" container box">
+            </div>
           </div>
         </div>
 
-        <!-- algorithm selection -->
-        <div id="radio-algorithm" class="container box">
-          <div id="ga" class="box">
-            <input id="radio-ga" type="radio" name="algorithm" value="ga" checked>
-            <label for="radio-ga">Genetic Algorithm</label>
-          </div>
-          <div id="sa" class="box">
-            <input id="radio-sa" type="radio" name="algorithm" value="sa">
-            <label for="radio-sa">Simulated Annealing</label>
-          </div>
-        </div>
+
 
         <!-- algorithm params -->
-        <div class="container v-container box">
-          <div class="container box"> Algorithm Params </div>
+        <div id="algorithm-options" class="container v-container box">
+
+          <!-- algorithm selection -->
+          <div id="radio-algorithm" class="container box">
+            <div id="ga" class="box radio-selected">
+              <input id="radio-ga" class="radio-alg" type="radio" name="algorithm" value="ga" checked>
+              <label for="radio-ga">Genetic Algorithm</label>
+            </div>
+            <div id="sa" class="box">
+              <input id="radio-sa" class="radio-alg" type="radio" name="algorithm" value="sa">
+              <label for="radio-sa">Simulated Annealing</label>
+            </div>
+          </div>
+
           <div id="algorithm-params" class="container box">
           </div>
         </div>

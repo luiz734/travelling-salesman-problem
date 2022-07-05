@@ -1,12 +1,15 @@
 * {
    font-family: Arial, Helvetica, sans-serif;
-   background-color: #212121;
-   color:aliceblue;
+   color:#fff;
    user-select: none;
 }
 h1 {
    text-align: center;
-   margin: 2rem;
+   text-transform: uppercase;
+   margin: 1.5rem;
+}
+html {
+   background-color: #212121;
 }
 
 .container {
@@ -20,10 +23,9 @@ h1 {
    flex-direction: column;
 }
 .main-container {
-   /* flex-wrap: nowrap; */
 }
 .box {
-   padding: 0.5rem;
+   padding: 0.3rem;
    margin: 0.2rem;
 }
 .small-box {
@@ -42,12 +44,13 @@ h1 {
    padding: 1.5rem;
    flex-grow: 0;
    flex-shrink: 0;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 }
 .number-display {
    font-size: larger !important;
-   font-weight: bold;
+   font-weight: bolder;
    min-width: 45px;
-   max-width: 45px;
+   color: #bbb;
    /* white-space: preo; */
    /* color: #5cb85c; */
 }
@@ -63,15 +66,12 @@ h1 {
    /* font-weight:bolder; */
    /* font-size: 1rem; */
 /* } */ 
-#canvas {
-
-}
 
 button {
    padding: 0.8em 1em;
    border: none;
    outline: none;
-   color: #FFF;
+   color: #fff;
    font-family: inherit;
    font-weight: 800;
    font-size: 1em;
@@ -80,6 +80,8 @@ button {
    z-index: 0;
    border-radius: 12px;
    flex: 1;
+   height: 2rem;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 }
 .btn-green {
    background-color: #3C824C;
@@ -90,8 +92,29 @@ button {
 .btn-blue {
    background-color: #016ecd;
 }
-#buttons {
-   justify-content: space-evenly;
-   align-content: stretch;
+#global-options {
+   justify-content: left;
+   align-content:space-between;
    padding: 1rem;
+   background-color: #212121;
+}
+
+#ga, #sa {
+   border-radius: 0.5rem;
+   padding: 1rem;
+   font-weight: bolder;
+   text-transform: uppercase;
+}
+.radio-alg {
+   display: none;
+}
+#algorithm-options {
+   background-color: #212121;
+}
+.radio-selected {
+   border: 3px solid #aaa;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+}
+.range-label {
+   color: #bbb
 }

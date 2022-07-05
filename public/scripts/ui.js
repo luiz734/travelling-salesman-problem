@@ -12,11 +12,31 @@ $(document).ready(function () {
    $("#btn-new").click(restart);
    $("#btn-reset").click(recreatePopulation);
 
+   $(".radio-alg").each(function () {
+      $(this).change(onAlgorithmChanged);
+   });
+
    setRangeChangedEvent("total-cities");
    setRangeChangedEvent("population-size");
    setRangeChangedEvent("mutation-rate");
    setRangeChangedEvent("cicles-per-frame");
 });
+
+function onAlgorithmChanged() {
+   // $("#ga").css("background", "#212121");
+   // $("#sa").css("background", "#212121");
+   $("#ga").toggleClass("radio-selected");
+   $("#sa").toggleClass("radio-selected");
+
+   switch ($(this).val()) {
+      case "ga":
+         // $("#ga").toggleClass("radio-selected");
+         break;
+      case "sa":
+         // $("#sa").toggleClass("radio-selected");
+         break;
+   }
+}
 
 function setRangeChangedEvent(paramName) {
    $("#range-" + paramName).on("input change", function () {
@@ -54,7 +74,7 @@ const buildSlider = ({ caption, min, max, step, initialValue }) => `
 <div class="input-group container box">
   <div class="container v-container box">
     <div class="container">
-      <label class="box small-box" for="ga-pop-size">${caption}</label>
+      <label class="box small-box range-label" for="ga-pop-size">${caption}</label>
     </div>
     <input id="range-${parseId(caption)}" class="box" name="range-${parseId(
    caption
