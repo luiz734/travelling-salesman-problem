@@ -16,9 +16,9 @@
     <h1> Travelling Salesman Problem</h1>
     <div id="main-container" class="container">
       <div id="canvas" class="box"> </div>
-      <div id="params" class="container v-container box">
 
-        <!-- buttons -->
+      <div id="params" class="container v-container box">
+        <!-- --------------------------- Global Options ---------------------------- -->
         <div id="global-options" class="container v-container box">
           <div class="container box small-box">
             <button id="btn-new" class="box btn-green"> New </button>
@@ -27,21 +27,15 @@
             <button id="btn-reset" class="box btn-blue"> Reset </button>
             <button id="btn-reset" class="box btn-red"> Foo </button>
           </div>
-
-          <!-- global params -->
+          <!-- ---------------------------- Global Params ---------------------------- -->
           <div class=" container v-container box">
-            <!-- <div class="container box"> Global Params </div> -->
             <div id="global-params" class=" container box">
             </div>
           </div>
         </div>
 
-
-
-        <!-- algorithm params -->
         <div id="algorithm-options" class="container v-container box">
-
-          <!-- algorithm selection -->
+          <!-- -------------------------- Algorithm Selection --------------------------- -->
           <div id="radio-algorithm" class="container box">
             <div id="ga" class="box radio-selected">
               <input id="radio-ga" class="radio-alg" type="radio" name="algorithm" value="ga" checked>
@@ -52,8 +46,9 @@
               <label for="radio-sa">Simulated Annealing</label>
             </div>
           </div>
-
+          <!-- --------------------------- Algorith Params --------------------------- -->
           <div id="algorithm-params" class="container box">
+            <!-- appended here from ui.js -->
           </div>
         </div>
       </div>

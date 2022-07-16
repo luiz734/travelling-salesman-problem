@@ -1,9 +1,18 @@
+"use strict";
 const params = {
    "total-cities": 30,
    "population-size": 400,
    "mutation-rate": 0.02,
    "cicles-per-frame": 1,
 };
+const GLOBAL_PARAMS = [
+   createParam("Total Cities", 1, 100, 1, 30),
+   createParam("Cicles per Frame", 1, 100, 1, 1),
+];
+const GENETIC_PARAMS = [
+   createParam("Population Size", 50, 2000, 50, 400),
+   createParam("Mutation Rate", 0.0, 1.0, 0.01, 0.02),
+];
 
 $(document).ready(function () {
    buildUIGroup("#global-params", GLOBAL_PARAMS);
@@ -23,19 +32,8 @@ $(document).ready(function () {
 });
 
 function onAlgorithmChanged() {
-   // $("#ga").css("background", "#212121");
-   // $("#sa").css("background", "#212121");
    $("#ga").toggleClass("radio-selected");
    $("#sa").toggleClass("radio-selected");
-
-   switch ($(this).val()) {
-      case "ga":
-         // $("#ga").toggleClass("radio-selected");
-         break;
-      case "sa":
-         // $("#sa").toggleClass("radio-selected");
-         break;
-   }
 }
 
 function setRangeChangedEvent(paramName) {
@@ -43,18 +41,9 @@ function setRangeChangedEvent(paramName) {
       const newValue = $(this).val();
       $("#display-" + paramName).html(newValue);
       params[paramName] = newValue;
-      param = newValue;
       restart();
    });
 }
-const GLOBAL_PARAMS = [
-   createParam("Total Cities", 1, 100, 1, 30),
-   createParam("Cicles per Frame", 1, 100, 1, 1),
-];
-const GENETIC_PARAMS = [
-   createParam("Population Size", 50, 2000, 50, 400),
-   createParam("Mutation Rate", 0.0, 1.0, 0.01, 0.02),
-];
 
 function createParam(caption, min, max, step, initialValue) {
    return {
@@ -85,8 +74,6 @@ const buildSlider = ({ caption, min, max, step, initialValue }) => `
      class="box number-display" for="">${initialValue}</label>
   </div>
 </div>`;
-
-const buildButton = ({}) => ``;
 
 function parseId(caption) {
    console.log(caption);

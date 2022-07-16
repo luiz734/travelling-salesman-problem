@@ -1,9 +1,11 @@
+"use strict";
+
+let bestFitness = Infinity;
+let globalBest = [];
 let cities = [];
 let distanceTable = [];
-let population = [];
-let bestIndiv = [];
-let bestFitness = Infinity;
 let generation = 0;
+let population = [];
 
 class Point {
    constructor(x, y) {
@@ -21,6 +23,7 @@ class Individual {
       this.calcFitness();
    }
    calcFitness() {
+      console.assert(distanceTable, "distance table not initialized");
       this.fitness = 0;
       for (let i = 0; i < cities.length; i++) {
          const cityIndexOne = this.cities[i % this.cities.length];
@@ -29,6 +32,7 @@ class Individual {
       }
    }
    swapCities(a, b) {
+      console.assert(this.cities, "Cities not initialized");
       const tmp = this.cities[a];
       this.cities[a] = this.cities[b];
       this.cities[b] = tmp;
@@ -49,71 +53,48 @@ function nextGeneration() {
       nextPopulation.push(child);
    }
 
-   const candidateBest = bestIndividual();
-   if (candidateBest.fitness < bestFitness) {
-      bestIndiv = candidateBest;
-      bestFitness = bestIndiv.fitness;
+   const generationBest = bestIndividual();
+   if (generationBest.fitness < bestFitness) {
+      globalBest = generationBest;
+      bestFitness = globalBest.fitness;
    }
    population = nextPopulation;
    generation += 1;
 }
-function weightedIndex(k) {
-   // let weights = [];
-   // let total = 0;
-   // for (let i = 0; i < population.length; i++) {
-   //    weights.push(1 / pow(population[i].fitness, 8));
-   //    total += weights[i];
-   // }
-   // let atotal = 0;
-   // for (let i = 0; i < population.length; i++) {
-   //    weights[i] = weights[i] / total;
-   //    atotal += weights[i];
-   // }
-   // const r = random();
-   // let w = 0;
-   // for (let i = 0; i < weights.length; i++) {
-   //    w += weights[i];
-   //    if (r < w) {
-   //       return i;
-   //    }
-   // }
-   // return weights.length - 1;
-   // ----------------
+function tournamentSelection(k) {
+   // https://en.wikipedia.org/wiki/Tournament_selection
+
    let bestIndex = null;
    for (let i = 0; i < k; i++) {
       const indexA = floor(random(0, population.length));
       const randIndividualA = population[indexA];
-
-      if (
+      const indexAIsBetter =
          bestIndex == null ||
-         randIndividualA.fitness < population[bestIndex].fitness
-      ) {
+         randIndividualA.fitness < population[bestIndex].fitness;
+
+      if (indexAIsBetter) {
          bestIndex = indexA;
       }
    }
    return bestIndex;
-   // const indexA = floor(random(0, population.length));
-   // const indexB = floor(random(0, population.length));
-   // const randIndividualA = population[indexA];
-   // const randIndividualB = population[indexB];
-
-   // if (randIndividualA.fitness < randIndividualB.fitness) {
-   //    return indexA;
-   // }
-   return indexB;
 }
+
 function weightedRandomChoices(amount) {
    let parents = [];
 
    let i = 0;
    while (i < amount) {
-      const newParent =
-         population[weightedIndex(floor(sqrt(population.length)))];
-      if (!parents.includes(newParent)) {
-         parents.push(newParent);
+      const tournamentWinner = tournamentSelection(
+         floor(sqrt(population.length))
+      );
+      const parentCandidate = population[tournamentWinner];
+
+      if (false === parents.includes(parentCandidate)) {
+         parents.push(parentCandidate);
          i += 1;
       }
    }
+
    return [...parents];
 }
 
@@ -125,39 +106,43 @@ function mutate(individual) {
       individual.calcFitness();
    }
 }
+
 function bestIndividual() {
    let best = population[0];
    for (let i = 1; i < population.length; i++) {
-      let current_fitness = population[i].fitness;
-      if (current_fitness < best.fitness) {
+      const fitness = population[i].fitness;
+      if (fitness < best.fitness) {
          best = population[i];
       }
    }
    return best;
 }
+
 function reproduce(parentA, parentB) {
-   let n = cities.length;
-   let rng_start = floor(random(0, n - 2));
-   let rng_end = floor(random(rng_start + 1, n));
-   let child = parentA.cities.slice(rng_start, rng_end);
-   for (let i = 0; i < cities.length; i++) {
-      if (!child.includes(parentB.cities[i])) {
-         child.push(parentB.cities[i]);
-      }
-   }
+   const n = cities.length;
+   const startPosition = floor(random(0, n - 2));
+   const endPosition = floor(random(startPosition + 1, n));
+   const parentASlice = parentA.cities.slice(startPosition, endPosition);
+   const parentBSlice = parentB.cities.filter((current) => {
+      const cityNotInA = !parentASlice.includes(current);
+      return cityNotInA;
+   });
+   const child = parentASlice.concat(parentBSlice);
+
    return new Individual(child);
 }
+
 function recreatePoints() {
    cities = [];
    for (let i = 0; i < params["total-cities"]; i++) {
-      let margin = WIDTH + 2;
-      p = new Point(
-         random(0 + margin, MAX_X - margin),
-         random(0 + margin, MAX_Y - margin)
+      let p = new Point(
+         random(0 + CANVAS_MARGIN, MAX_X - CANVAS_MARGIN),
+         random(0 + CANVAS_MARGIN, MAX_Y - CANVAS_MARGIN)
       );
       cities.push(p);
    }
 }
+
 function recreatePopulation() {
    generation = 0;
    bestFitness = Infinity;
@@ -166,13 +151,15 @@ function recreatePopulation() {
       population.push(new Individual());
    }
 }
+
 function restart() {
-   console.log("Reset");
    recreatePoints();
    recreateDistanceTable();
    recreatePopulation();
 }
+
 function recreateDistanceTable() {
+   console.assert(cities, "cities not initialized");
    distanceTable = [];
    for (let i = 0; i < cities.length; i++) {
       distanceTable.push([]);
